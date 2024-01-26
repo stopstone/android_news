@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_latest_articles"
+        android:name="com.stopstone.newsapp.LatestFragment"
+        android:label="@string/label_latest"
+        tools:layout="@layout/fragment_latest"/>
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.stopstone.newsapp.HomeFragment"
+        android:label="@string/label_home"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/navigation_bookmark"
+        android:name="com.stopstone.newsapp.BookmarkFragment"
+        android:label="@string/label_bookmark"
+        tools:layout="@layout/fragment_bookmark"/>
+
+
+</navigation>
