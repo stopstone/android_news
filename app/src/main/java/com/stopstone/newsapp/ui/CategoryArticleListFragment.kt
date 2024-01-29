@@ -34,25 +34,7 @@ class CategoryArticleListFragment : Fragment() {
         } else {
             arguments?.getSerializable(Constants.KEY_CATEGORY) as Category
         }
-
-        val categoryPosition = arguments?.getInt(Constants.KEY_CATEGORY, 0)
-        when (categoryPosition) {
-            0 -> {
-                repeat(5) {
-                    items.add(Article("business title $it"))
-                }
-            }
-
-            else -> {
-                repeat(10) {
-                    items.add(Article("health title $it"))
-                }
-            }
-        }
-
-
         binding.rvCategoryArticleList.adapter = CategoryArticleAdapter(items)
-
     }
 
     override fun onDestroyView() {
