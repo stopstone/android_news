@@ -1,4 +1,4 @@
-package com.stopstone.newsapp
+package com.stopstone.newsapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -23,10 +24,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewpagerHome.adapter
+        binding.viewpagerHome.adapter = HomePagerStateAdapter(this, Category.values())
         TabLayoutMediator(binding.tabHome, binding.viewpagerHome) { tab, position ->
-            TODO("Not yet implemented")
-        }
+            tab.text = Category.values()[position].label
+        }.attach()
     }
 
     override fun onDestroyView() {

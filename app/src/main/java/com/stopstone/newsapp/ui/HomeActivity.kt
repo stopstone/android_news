@@ -1,9 +1,10 @@
-package com.stopstone.newsapp
+package com.stopstone.newsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.stopstone.newsapp.R
 import com.stopstone.newsapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

@@ -3,4 +3,10 @@
     <string name="label_home">Home</string>
     <string name="label_latest">Latest</string>
     <string name="label_bookmark">Saved</string>
+    <string name="label_business">business</string>
+    <string name="label_entertainment">entertainment</string>
+    <string name="label_health">health</string>
+    <string name="label_science">science</string>
+    <string name="label_sports">sports</string>
+    <string name="description_article_thumbnail_image">뉴스 기사 썸네일 이미지</string>
 </resources>

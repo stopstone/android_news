@@ -4,9 +4,15 @@
     <!--  Component  -->
     <style name="App.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="titleCentered">true</item>
-        <item name="titleTextAppearance">@style/App.TestHeadLine32</item>
+        <item name="titleTextAppearance">@style/App.TextHeadLine32</item>
     </style>
 
     <!--  Text Style  -->
-    <style name="App.TestHeadLine32" parent="TextAppearance.Material3.HeadlineLarge" />
+    <style name="App.TextHeadLine32" parent="TextAppearance.Material3.HeadlineLarge" />
+
+    <style name="App.TextHeadLine24" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="App.TextBody16" parent="TextAppearance.Material3.BodyLarge" />
 </resources>
