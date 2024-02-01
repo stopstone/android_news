@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.data.NewsService
 import com.stopstone.newsapp.databinding.FragmentCategoryArticleListBinding
 import com.stopstone.newsapp.util.Constants
 import kotlinx.coroutines.launch
 
-class CategoryArticleListFragment : Fragment() {
+class CategoryArticleListFragment : Fragment(), ArticleClickListener {
 
     private var _binding: FragmentCategoryArticleListBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +44,11 @@ class CategoryArticleListFragment : Fragment() {
         _binding = null
     }
 
+    override fun onClickArticle() {
+        val action = HomeFragmentDirections.actionHomeToArticleDetail()
+        findNavController().navigate(action)
+    }
+
 
     private fun setCategory(): Category {
         category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -54,7 +60,7 @@ class CategoryArticleListFragment : Fragment() {
     }
 
     private fun setLayout() {
-        val adapter = CategoryArticleAdapter()
+        val adapter = CategoryArticleAdapter(this)
         binding.rvCategoryArticleList.adapter = adapter
         lifecycleScope.launch {
             val newsService = NewsService.create()
@@ -72,4 +78,5 @@ class CategoryArticleListFragment : Fragment() {
             }
         }
     }
+
 }

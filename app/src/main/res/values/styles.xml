@@ -7,6 +7,11 @@
         <item name="titleTextAppearance">@style/App.TextHeadLine32</item>
     </style>
 
+    <style name="App.Toolbar.Navigation">
+        <item name="navigationIcon">@drawable/ic_arrow_back</item>
+    </style>
+
+
     <!--  Image Style  -->
     <style name="AppImageRounded">
         <item name="cornerSize">10dp</item>
@@ -23,6 +28,8 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="App.TextTitle16" parent="TextAppearance.Material3.TitleMedium"/>
+    
     <style name="App.TextBody16" parent="TextAppearance.Material3.BodyLarge" />
 
     <style name="App.TextBody12" parent="TextAppearance.Material3.BodySmall" />

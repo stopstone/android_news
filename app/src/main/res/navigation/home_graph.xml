@@ -9,17 +9,30 @@
         android:id="@+id/navigation_latest_articles"
         android:name="com.stopstone.newsapp.ui.LatestFragment"
         android:label="@string/label_latest"
-        tools:layout="@layout/fragment_latest"/>
+        tools:layout="@layout/fragment_latest">
+        <action
+            android:id="@+id/action_latest_articles_to_article_detail"
+            app:destination="@id/navigation_article_detail" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.stopstone.newsapp.ui.HomeFragment"
         android:label="@string/label_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_article_detail"
+            app:destination="@id/navigation_article_detail" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_bookmark"
         android:name="com.stopstone.newsapp.ui.BookmarkFragment"
         android:label="@string/label_bookmark"
         tools:layout="@layout/fragment_bookmark"/>
-
+    <activity
+        android:id="@+id/navigation_article_detail"
+        android:name="com.stopstone.newsapp.ui.ArticleDetailActivity"
+        android:label="ArticleDetailActivity"
+        tools:layout="@layout/activity_article_detail"
+        />
 
 </navigation>

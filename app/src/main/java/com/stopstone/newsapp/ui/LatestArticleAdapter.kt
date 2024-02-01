@@ -1,20 +1,17 @@
 package com.stopstone.newsapp.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.stopstone.newsapp.R
 import com.stopstone.newsapp.data.Article
-import com.stopstone.newsapp.databinding.FragmentLatestBinding
 import com.stopstone.newsapp.databinding.ItemLatestArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
 
-class LatestArticleAdapter : RecyclerView.Adapter<LatestArticleAdapter.LatestArticleViewHolder>() {
+class LatestArticleAdapter(private val listener: ArticleClickListener) :
+    RecyclerView.Adapter<LatestArticleAdapter.LatestArticleViewHolder>() {
     private val items = mutableListOf<Article>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestArticleViewHolder {
-        return LatestArticleViewHolder.from(parent)
+        return LatestArticleViewHolder.from(parent, listener)
     }
 
     override fun getItemCount(): Int {
@@ -31,9 +28,15 @@ class LatestArticleAdapter : RecyclerView.Adapter<LatestArticleAdapter.LatestArt
         notifyItemRangeChanged(positionStart, articles.size)
     }
 
-    class LatestArticleViewHolder(private val binding: ItemLatestArticleBinding) :
+    class LatestArticleViewHolder(
+        private val binding: ItemLatestArticleBinding,
+        private val listener: ArticleClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
+            itemView.setOnClickListener {
+                listener.onClickArticle()
+            }
             with(binding) {
                 ivLatestArticleImage.load(article.urlToImage)
                 tvLatestArticleTitle.text = article.title
@@ -42,13 +45,13 @@ class LatestArticleAdapter : RecyclerView.Adapter<LatestArticleAdapter.LatestArt
         }
 
         companion object {
-            fun from(parent: ViewGroup): LatestArticleViewHolder {
+            fun from(parent: ViewGroup, listener: ArticleClickListener): LatestArticleViewHolder {
                 val binding = ItemLatestArticleBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return LatestArticleViewHolder(binding)
+                return LatestArticleViewHolder(binding, listener)
             }
         }
 
