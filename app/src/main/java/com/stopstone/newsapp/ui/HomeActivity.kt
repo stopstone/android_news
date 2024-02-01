@@ -3,12 +3,14 @@ package com.stopstone.newsapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.stopstone.newsapp.R
 import com.stopstone.newsapp.data.NewsService
 import com.stopstone.newsapp.data.TopHeadlinesResponse
 import com.stopstone.newsapp.databinding.ActivityHomeBinding
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,31 +27,5 @@ class HomeActivity : AppCompatActivity() {
         navController?.let {
             binding.bottomNavigationHome.setupWithNavController(it)
         }
-
-
-        val newsService = NewsService.create()
-        val result = newsService.getTopHeadLines("sports", "")
-        result.enqueue(object : Callback<TopHeadlinesResponse> {
-            override fun onResponse(
-                call: Call<TopHeadlinesResponse>,
-                response: Response<TopHeadlinesResponse>
-            ) {
-
-                if (response.isSuccessful) {
-                    val topHeadlinesResponse = response.body()
-                    Log.d(
-                        "HomeActivity",
-                        "topHeadlinesResponse : $topHeadlinesResponse"
-                    )
-                } else {
-                    Log.d("HomeActivity", "message : ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<TopHeadlinesResponse>, t: Throwable) {
-                Log.e("HomeActivity", "t : ${t.message}")
-            }
-
-        })
     }
 }

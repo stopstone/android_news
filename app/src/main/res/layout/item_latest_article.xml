@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_latest_article_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/description_article_thumbnail_image"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="w, 1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/AppImageRounded"
+        tools:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/tv_latest_article_title"
+        style="@style/App.TextTitle18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="@id/iv_latest_article_image"
+        app:layout_constraintStart_toStartOf="@id/iv_latest_article_image"
+        app:layout_constraintTop_toBottomOf="@id/iv_latest_article_image"
+        tools:text="Nurse becomes a living organ donor for her mom – twice" />
+
+    <TextView
+        android:id="@+id/tv_latest_article_publish"
+        style="@style/App.TextBody12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_latest_article_image"
+        app:layout_constraintStart_toStartOf="@id/iv_latest_article_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_latest_article_title"
+        tools:text="2023/12/25" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

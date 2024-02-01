@@ -6,15 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.stopstone.newsapp.util.Constants
-import com.stopstone.newsapp.data.Article
+import androidx.lifecycle.lifecycleScope
 import com.stopstone.newsapp.data.Category
+import com.stopstone.newsapp.data.NewsService
 import com.stopstone.newsapp.databinding.FragmentCategoryArticleListBinding
+import com.stopstone.newsapp.util.Constants
+import kotlinx.coroutines.launch
 
 class CategoryArticleListFragment : Fragment() {
 
     private var _binding: FragmentCategoryArticleListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var category: Category
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setCategory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,19 +35,32 @@ class CategoryArticleListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val items = mutableListOf<Article>()
-
-        val category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getSerializable(Constants.KEY_CATEGORY, Category::class.java)
-        } else {
-            arguments?.getSerializable(Constants.KEY_CATEGORY) as Category
-        }
-        binding.rvCategoryArticleList.adapter = CategoryArticleAdapter(items)
+        setLayout()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun setCategory(): Category {
+        category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable(Constants.KEY_CATEGORY, Category::class.java)
+        } else {
+            arguments?.getSerializable(Constants.KEY_CATEGORY) as Category
+        } ?: Category.BUSINESS
+        return category
+    }
+
+    private fun setLayout() {
+        val adapter = CategoryArticleAdapter()
+        binding.rvCategoryArticleList.adapter = adapter
+        lifecycleScope.launch {
+            val newsService = NewsService.create()
+            val result = newsService.getTopHeadLines(category.label)
+            adapter.addArticles(result.articles)
+        }
     }
 
     companion object {

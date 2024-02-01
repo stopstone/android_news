@@ -7,6 +7,11 @@
         <item name="titleTextAppearance">@style/App.TextHeadLine32</item>
     </style>
 
+    <!--  Image Style  -->
+    <style name="AppImageRounded">
+        <item name="cornerSize">10dp</item>
+    </style>
+
     <!--  Text Style  -->
     <style name="App.TextHeadLine32" parent="TextAppearance.Material3.HeadlineLarge" />
 
@@ -14,5 +19,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="App.TextTitle18" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="App.TextBody16" parent="TextAppearance.Material3.BodyLarge" />
+
+    <style name="App.TextBody12" parent="TextAppearance.Material3.BodySmall" />
 </resources>

@@ -1,7 +1,14 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+val localPropertiesFile = rootProject.file("local.properties")
+val properties = Properties()
+properties.load(FileInputStream(localPropertiesFile))
 
 android {
     namespace = "com.stopstone.newsapp"
@@ -13,6 +20,8 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "API_KEY", "\"${properties["newsapi.key"]}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,6 +37,7 @@ android {
 
         buildFeatures {
             viewBinding = true
+            buildConfig = true
         }
     }
     compileOptions {
@@ -49,6 +59,7 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
