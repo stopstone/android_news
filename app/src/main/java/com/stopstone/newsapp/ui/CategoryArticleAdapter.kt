@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stopstone.newsapp.data.Article
+import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.databinding.ItemCategoryArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
 
-class CategoryArticleAdapter(private val listener: ArticleClickListener) :
+class CategoryArticleAdapter(
+    private val category: Category,
+    private val listener: ArticleClickListener
+) :
     RecyclerView.Adapter<CategoryArticleViewHolder>() {
     private val items = mutableListOf<Article>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryArticleViewHolder {
@@ -19,7 +23,7 @@ class CategoryArticleAdapter(private val listener: ArticleClickListener) :
     }
 
     override fun onBindViewHolder(holder: CategoryArticleViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(category, items[position])
     }
 
     fun addArticles(articles: List<Article>) {
@@ -33,9 +37,9 @@ class CategoryArticleViewHolder(
     private val binding: ItemCategoryArticleBinding,
     private val listener: ArticleClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(article: Article) {
+    fun bind(category: Category, article: Article) {
         itemView.setOnClickListener {
-            listener.onClickArticle()
+            listener.onClickArticle(category, article)
         }
         with(binding) {
             ivArticleThumbnailImage.load(article.urlToImage)

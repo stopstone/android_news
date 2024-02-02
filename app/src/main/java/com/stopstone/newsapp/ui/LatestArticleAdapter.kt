@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stopstone.newsapp.data.Article
+import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.databinding.ItemLatestArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
 
-class LatestArticleAdapter(private val listener: ArticleClickListener) :
+class LatestArticleAdapter(
+    private val category: Category,
+    private val listener: ArticleClickListener
+) :
     RecyclerView.Adapter<LatestArticleAdapter.LatestArticleViewHolder>() {
     private val items = mutableListOf<Article>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestArticleViewHolder {
@@ -19,7 +23,7 @@ class LatestArticleAdapter(private val listener: ArticleClickListener) :
     }
 
     override fun onBindViewHolder(holder: LatestArticleViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(category, items[position])
     }
 
     fun addArticles(articles: List<Article>) {
@@ -33,9 +37,9 @@ class LatestArticleAdapter(private val listener: ArticleClickListener) :
         private val listener: ArticleClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(article: Article) {
+        fun bind(category: Category, article: Article) {
             itemView.setOnClickListener {
-                listener.onClickArticle()
+                listener.onClickArticle(category, article)
             }
             with(binding) {
                 ivLatestArticleImage.load(article.urlToImage)

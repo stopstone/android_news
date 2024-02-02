@@ -33,6 +33,13 @@
         android:name="com.stopstone.newsapp.ui.ArticleDetailActivity"
         android:label="ArticleDetailActivity"
         tools:layout="@layout/activity_article_detail"
-        />
+        >
+        <argument
+            android:name="category"
+            app:argType="com.stopstone.newsapp.data.Category" />
+        <argument
+            android:name="article"
+            app:argType="com.stopstone.newsapp.data.Article" />
+    </activity>
 
 </navigation>

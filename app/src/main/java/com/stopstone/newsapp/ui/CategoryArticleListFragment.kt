@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.stopstone.newsapp.data.Article
 import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.data.NewsService
 import com.stopstone.newsapp.databinding.FragmentCategoryArticleListBinding
@@ -44,8 +45,8 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
         _binding = null
     }
 
-    override fun onClickArticle() {
-        val action = HomeFragmentDirections.actionHomeToArticleDetail()
+    override fun onClickArticle(category:Category, article: Article) {
+        val action = HomeFragmentDirections.actionHomeToArticleDetail(category, article)
         findNavController().navigate(action)
     }
 
@@ -60,7 +61,7 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
     }
 
     private fun setLayout() {
-        val adapter = CategoryArticleAdapter(this)
+        val adapter = CategoryArticleAdapter(category, this)
         binding.rvCategoryArticleList.adapter = adapter
         lifecycleScope.launch {
             val newsService = NewsService.create()

@@ -55,7 +55,7 @@
         android:layout_marginTop="16dp"
         android:contentDescription="@string/description_article_thumbnail_image"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/tv_article_detail_description"
+        app:layout_constraintBottom_toTopOf="@id/tv_article_detail_content"
         app:layout_constraintDimensionRatio="w, 9:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
         tools:src="@drawable/ic_image_not_supported" />
 
     <TextView
-        android:id="@+id/tv_article_detail_description"
+        android:id="@+id/tv_article_detail_content"
         style="@style/App.TextBody16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -74,12 +74,13 @@
         tools:text="For all the ink spilled over its horrors, the 2023 stock market will go into the books as an undistinguished one in the history of bad years. For traders" />
 
     <TextView
+        android:id="@+id/tv_article_detail_publish_date"
         style="@style/App.TextBody12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
         app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
-        app:layout_constraintTop_toBottomOf="@id/tv_article_detail_description"
+        app:layout_constraintTop_toBottomOf="@id/tv_article_detail_content"
         tools:text="2024/02/01" />
 </androidx.constraintlayout.widget.ConstraintLayout>

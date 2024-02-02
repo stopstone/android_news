@@ -1,6 +1,7 @@
 package com.stopstone.newsapp.data
 
 enum class Category(val label: String) {
+    DEFAULT("latest"),
     BUSINESS("business"),
     ENTERTAINMENT("entertainment"),
     GENERAL("general"),

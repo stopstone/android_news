@@ -12,11 +12,10 @@ import com.stopstone.newsapp.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val homeCategories = Category.values().filter { it != Category.DEFAULT }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -24,9 +23,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewpagerHome.adapter = HomePagerStateAdapter(this, Category.values())
+
+        binding.viewpagerHome.adapter = HomePagerStateAdapter(this, homeCategories)
         TabLayoutMediator(binding.tabHome, binding.viewpagerHome) { tab, position ->
-            tab.text = Category.values()[position].label
+            tab.text = homeCategories[position].label
         }.attach()
     }
 
