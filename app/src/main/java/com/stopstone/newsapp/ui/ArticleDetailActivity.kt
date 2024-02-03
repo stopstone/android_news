@@ -1,11 +1,14 @@
 package com.stopstone.newsapp.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.stopstone.newsapp.databinding.ActivityArticleDetailBinding
 import com.stopstone.newsapp.ui.extensions.load
+import com.stopstone.newsapp.ui.extensions.setPublishedAt
+import com.stopstone.newsapp.util.DateFormatText
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ArticleDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityArticleDetailBinding
@@ -29,8 +32,7 @@ class ArticleDetailActivity : AppCompatActivity() {
             tvArticleDetailTitle.text = article.title
             ivArticleDetailImage.load(article.urlToImage)
             tvArticleDetailContent.text = article.description
-            tvArticleDetailPublishDate.text = article.publishedAt
+            tvArticleDetailPublishDate.setPublishedAt(article.publishedAt)
         }
-
     }
 }

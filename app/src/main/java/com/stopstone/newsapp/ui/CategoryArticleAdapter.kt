@@ -7,6 +7,7 @@ import com.stopstone.newsapp.data.Article
 import com.stopstone.newsapp.data.Category
 import com.stopstone.newsapp.databinding.ItemCategoryArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
+import com.stopstone.newsapp.ui.extensions.setPublishedAt
 
 class CategoryArticleAdapter(
     private val category: Category,
@@ -45,7 +46,7 @@ class CategoryArticleViewHolder(
             ivArticleThumbnailImage.load(article.urlToImage)
             tvArticleTitle.text = article.title
             tvArticleDescription.text = article.description
-            tvArticlePublishDate.text = article.publishedAt
+            tvArticlePublishDate.setPublishedAt(article.publishedAt)
         }
     }
 
