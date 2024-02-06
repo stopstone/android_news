@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_bookmark" />
+                android:background="@drawable/selector_bookmark_menu" />
         </com.google.android.material.appbar.MaterialToolbar>
 
         <TextView

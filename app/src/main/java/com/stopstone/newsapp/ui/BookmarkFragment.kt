@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.stopstone.newsapp.R
+import com.stopstone.newsapp.data.AppDatabase
+import com.stopstone.newsapp.data.BookmarkArticle
 import com.stopstone.newsapp.databinding.FragmentBookmarkBinding
 
 class BookmarkFragment: Fragment() {
@@ -24,8 +27,9 @@ class BookmarkFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvBookmarkArticleList.adapter = BookmarkAdapter()
-
+        val db = context?.let { AppDatabase.getInstance(it.applicationContext) }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
