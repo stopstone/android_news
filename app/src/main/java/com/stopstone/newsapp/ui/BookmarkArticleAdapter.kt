@@ -1,16 +1,16 @@
 package com.stopstone.newsapp.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stopstone.newsapp.data.Article
+import com.stopstone.newsapp.data.BookmarkArticle
 import com.stopstone.newsapp.databinding.ItemBookmarkArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
 
 class BookmarkArticleAdapter :
     RecyclerView.Adapter<BookmarkArticleAdapter.BookmarkArticleViewHolder>() {
-    private val items = mutableListOf<Article>()
+    private val items = mutableListOf<BookmarkArticle>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkArticleViewHolder {
         return BookmarkArticleViewHolder.from(parent)
     }
@@ -23,8 +23,16 @@ class BookmarkArticleAdapter :
         holder.bind(items[position])
     }
 
-    class BookmarkArticleViewHolder(private val binding: ItemBookmarkArticleBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(article: Article) {
+    fun add(articles: List<BookmarkArticle>) {
+        val positionStart = items.size
+        items.addAll(articles)
+        notifyItemRangeInserted(positionStart, articles.size)
+    }
+
+    class BookmarkArticleViewHolder(private val binding: ItemBookmarkArticleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(bookmarkArticle: BookmarkArticle) {
+            val article = bookmarkArticle.article
             with(binding) {
                 ivBookmarkArticleImage.load(article.urlToImage)
                 tvBookmarkArticleTitle.text = article.title

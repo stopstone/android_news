@@ -16,4 +16,7 @@ interface BookmarkArticleDao {
 
     @Query("SELECT * FROM bookmark_articles WHERE article =:article AND category =:category")
     suspend fun getArticle(article: Article, category: Category) : BookmarkArticle?
+
+    @Query("SELECT * FROM bookmark_articles ORDER BY category ASC, added_date DESC")
+    suspend fun getAllArticles() : List<BookmarkArticle>
 }

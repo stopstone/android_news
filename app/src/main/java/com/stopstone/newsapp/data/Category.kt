@@ -10,3 +10,5 @@ enum class Category(val label: String) {
     SPORTS("sports"),
     TECHNOLOGY("technology"),
 }
+
+fun Category.sectionTitle() = label.replaceFirstChar { it.uppercase() }

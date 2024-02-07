@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
 import com.stopstone.newsapp.data.AppDatabase
 import com.stopstone.newsapp.data.BookmarkArticle
+import com.stopstone.newsapp.data.sectionTitle
 import com.stopstone.newsapp.databinding.ActivityArticleDetailBinding
 import com.stopstone.newsapp.ui.extensions.load
 import com.stopstone.newsapp.ui.extensions.setPublishedAt
@@ -56,7 +57,7 @@ class ArticleDetailActivity : AppCompatActivity() {
     private fun setLayout() {
         val article = args.article
         with(binding) {
-            tvArticleDetailCategory.text = args.category.label.replaceFirstChar { it.uppercase() }
+            tvArticleDetailCategory.text = args.category.sectionTitle()
             tvArticleDetailTitle.text = article.title
             ivArticleDetailImage.load(article.urlToImage)
             tvArticleDetailContent.text = article.description

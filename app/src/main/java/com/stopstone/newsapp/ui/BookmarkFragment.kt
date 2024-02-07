@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.room.Room
-import com.stopstone.newsapp.R
+import androidx.lifecycle.lifecycleScope
 import com.stopstone.newsapp.data.AppDatabase
 import com.stopstone.newsapp.data.BookmarkArticle
+import com.stopstone.newsapp.data.BookmarkItem
+import com.stopstone.newsapp.data.BookmarkSectionArticle
+import com.stopstone.newsapp.data.BookmarkSectionTitle
+import com.stopstone.newsapp.data.sectionTitle
 import com.stopstone.newsapp.databinding.FragmentBookmarkBinding
+import kotlinx.coroutines.launch
 
-class BookmarkFragment: Fragment() {
-    private var _binding : FragmentBookmarkBinding? = null
+class BookmarkFragment : Fragment() {
+    private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,8 +30,21 @@ class BookmarkFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvBookmarkArticleList.adapter = BookmarkAdapter()
-        val db = context?.let { AppDatabase.getInstance(it.applicationContext) }
+        val db = activity?.applicationContext?.let { AppDatabase.getInstance(it) } ?: return
+        val dao = db.bookmarkArticleDao()
+
+        val adapter = BookmarkAdapter()
+        lifecycleScope.launch {
+            val articles = dao.getAllArticles()
+            val items = mutableListOf<BookmarkItem>()
+           articles.groupBy { it.category }
+                    .forEach {
+                    items.add(BookmarkSectionTitle(it.key.sectionTitle()))
+                    items.add(BookmarkSectionArticle(it.value))
+                }
+            adapter.add(items)
+        }
+        binding.rvBookmarkArticleList.adapter = adapter
     }
 
     override fun onDestroyView() {
