@@ -1,11 +1,12 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.stopstone.newsapp.data.Article
-import com.stopstone.newsapp.data.Category
+import com.stopstone.newsapp.data.model.Article
+import com.stopstone.newsapp.data.model.Category
 import com.stopstone.newsapp.databinding.ItemCategoryArticleBinding
+import com.stopstone.newsapp.ui.common.ArticleClickListener
 import com.stopstone.newsapp.ui.extensions.load
 import com.stopstone.newsapp.ui.extensions.setPublishedAt
 

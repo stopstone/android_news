@@ -1,9 +1,8 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 
 @Entity(tableName = "bookmark_articles")
 data class BookmarkArticle(

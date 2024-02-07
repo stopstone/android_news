@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.stopstone.newsapp.data.Category
+import com.stopstone.newsapp.data.model.Category
 import com.stopstone.newsapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

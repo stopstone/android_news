@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.model
 
 enum class Category(val label: String) {
     DEFAULT("latest"),

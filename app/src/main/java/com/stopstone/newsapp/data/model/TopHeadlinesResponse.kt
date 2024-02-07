@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.model
 
 data class TopHeadlinesResponse(
     val status: String,

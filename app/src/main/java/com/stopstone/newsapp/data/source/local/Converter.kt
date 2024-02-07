@@ -1,7 +1,8 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.source.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import com.stopstone.newsapp.data.model.Article
 
 class Converter {
 

@@ -1,10 +1,9 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.ui.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.stopstone.newsapp.data.Article
-import com.stopstone.newsapp.data.BookmarkArticle
+import com.stopstone.newsapp.data.model.BookmarkArticle
 import com.stopstone.newsapp.databinding.ItemBookmarkArticleBinding
 import com.stopstone.newsapp.ui.extensions.load
 

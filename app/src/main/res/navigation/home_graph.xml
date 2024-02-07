@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_latest_articles"
-        android:name="com.stopstone.newsapp.ui.LatestFragment"
+        android:name="com.stopstone.newsapp.ui.latest.LatestFragment"
         android:label="@string/label_latest"
         tools:layout="@layout/fragment_latest">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.stopstone.newsapp.ui.HomeFragment"
+        android:name="com.stopstone.newsapp.ui.home.HomeFragment"
         android:label="@string/label_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -25,21 +25,21 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_bookmark"
-        android:name="com.stopstone.newsapp.ui.BookmarkFragment"
+        android:name="com.stopstone.newsapp.ui.bookmark.BookmarkFragment"
         android:label="@string/label_bookmark"
         tools:layout="@layout/fragment_bookmark"/>
     <activity
         android:id="@+id/navigation_article_detail"
-        android:name="com.stopstone.newsapp.ui.ArticleDetailActivity"
+        android:name="com.stopstone.newsapp.ui.detail.ArticleDetailActivity"
         android:label="ArticleDetailActivity"
         tools:layout="@layout/activity_article_detail"
         >
         <argument
             android:name="category"
-            app:argType="com.stopstone.newsapp.data.Category" />
+            app:argType="com.stopstone.newsapp.data.model.Category" />
         <argument
             android:name="article"
-            app:argType="com.stopstone.newsapp.data.Article" />
+            app:argType="com.stopstone.newsapp.data.model.Article" />
     </activity>
 
 </navigation>

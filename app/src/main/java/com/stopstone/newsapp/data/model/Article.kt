@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

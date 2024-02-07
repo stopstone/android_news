@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.model
 
 sealed class BookmarkItem
 data class BookmarkSectionTitle(

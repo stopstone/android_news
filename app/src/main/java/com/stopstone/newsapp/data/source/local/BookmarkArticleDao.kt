@@ -1,9 +1,11 @@
-package com.stopstone.newsapp.data
+package com.stopstone.newsapp.data.source.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.stopstone.newsapp.data.model.Article
+import com.stopstone.newsapp.data.model.BookmarkArticle
+import com.stopstone.newsapp.data.model.Category
 
 @Dao
 interface BookmarkArticleDao {

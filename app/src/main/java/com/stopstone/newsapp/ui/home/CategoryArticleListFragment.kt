@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.ui.home
 
 import android.os.Build
 import android.os.Bundle
@@ -8,18 +8,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.stopstone.newsapp.data.Article
-import com.stopstone.newsapp.data.Category
-import com.stopstone.newsapp.data.NewsService
+import com.stopstone.newsapp.NewsApplication
+import com.stopstone.newsapp.data.CategoryArticleRepository
+import com.stopstone.newsapp.data.model.Article
+import com.stopstone.newsapp.data.model.Category
 import com.stopstone.newsapp.databinding.FragmentCategoryArticleListBinding
+import com.stopstone.newsapp.ui.common.ArticleClickListener
 import com.stopstone.newsapp.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CategoryArticleListFragment : Fragment(), ArticleClickListener {
 
     private var _binding: FragmentCategoryArticleListBinding? = null
     private val binding get() = _binding!!
     private lateinit var category: Category
+    @Inject lateinit var repository : CategoryArticleRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +51,7 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
         _binding = null
     }
 
-    override fun onClickArticle(category:Category, article: Article) {
+    override fun onClickArticle(category: Category, article: Article) {
         val action = HomeFragmentDirections.actionHomeToArticleDetail(category, article)
         findNavController().navigate(action)
     }
@@ -64,9 +70,8 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
         val adapter = CategoryArticleAdapter(category, this)
         binding.rvCategoryArticleList.adapter = adapter
         lifecycleScope.launch {
-            val newsService = NewsService.create()
-            val result = newsService.getTopHeadLines(category.label)
-            adapter.addArticles(result.articles)
+            val result = repository.getCategoryArticle(category.label)
+            adapter.addArticles(result)
         }
     }
 
