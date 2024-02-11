@@ -3,7 +3,6 @@ package com.stopstone.newsapp.data
 import com.stopstone.newsapp.data.model.Article
 import com.stopstone.newsapp.data.model.BookmarkArticle
 import com.stopstone.newsapp.data.model.Category
-import com.stopstone.newsapp.data.source.local.AppDatabase
 import com.stopstone.newsapp.data.source.local.BookmarkArticleDao
 import com.stopstone.newsapp.util.DateFormatText
 import javax.inject.Inject

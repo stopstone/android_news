@@ -2,10 +2,6 @@ package com.stopstone.newsapp.data.source.remote
 
 import com.stopstone.newsapp.BuildConfig
 import com.stopstone.newsapp.data.model.TopHeadlinesResponse
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
