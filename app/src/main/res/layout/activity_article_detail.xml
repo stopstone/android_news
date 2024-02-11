@@ -1,94 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import type="com.stopstone.newsapp.data.model.CategoryKt" />
+
+        <variable
+            name="category"
+            type="com.stopstone.newsapp.data.model.Category" />
+
+        <variable
+            name="article"
+            type="com.stopstone.newsapp.data.model.Article" />
+
+        <variable
+            name="viewModel"
+            type="com.stopstone.newsapp.ui.detail.ArticleDetailViewModel" />
+
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/appbar_article_detail"
-            style="@style/App.Toolbar.Navigation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_article_detail_bookmark"
-                android:layout_width="wrap_content"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/appbar_article_detail"
+                style="@style/App.Toolbar.Navigation"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_article_detail_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> viewModel.updateState(article, category)}"
+                    android:background="@drawable/selector_bookmark_menu" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <TextView
+                android:id="@+id/tv_article_detail_category"
+                style="@style/App.TextTitle16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/selector_bookmark_menu" />
-        </com.google.android.material.appbar.MaterialToolbar>
+                android:text="@{CategoryKt.sectionTitle(category)}"
+                app:layout_constraintBottom_toTopOf="@id/tv_article_detail_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appbar_article_detail"
+                tools:text="Business" />
 
-        <TextView
-            android:id="@+id/tv_article_detail_category"
-            style="@style/App.TextTitle16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_article_detail_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar_article_detail"
-            tools:text="Business" />
+            <TextView
+                android:id="@+id/tv_article_detail_title"
+                style="@style/App.TextHeadLine24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{article.title}"
+                app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
+                app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
+                app:layout_constraintTop_toBottomOf="@id/tv_article_detail_category"
+                tools:text="Traders Are Losing Hope in Stock Market After Year of Rolling Losses, Fakeouts" />
 
-        <TextView
-            android:id="@+id/tv_article_detail_title"
-            style="@style/App.TextHeadLine24"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
-            app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
-            app:layout_constraintTop_toBottomOf="@id/tv_article_detail_category"
-            tools:text="Traders Are Losing Hope in Stock Market After Year of Rolling Losses, Fakeouts" />
+            <ImageView
+                android:id="@+id/iv_article_detail_image"
+                iamgeUrl="@{article.urlToImage}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/description_article_thumbnail_image"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/tv_article_detail_content"
+                app:layout_constraintDimensionRatio="w, 9:5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_article_detail_title"
+                tools:src="@drawable/ic_image_not_supported" />
 
-        <ImageView
-            android:id="@+id/iv_article_detail_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/description_article_thumbnail_image"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/tv_article_detail_content"
-            app:layout_constraintDimensionRatio="w, 9:5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_article_detail_title"
-            tools:src="@drawable/ic_image_not_supported" />
+            <TextView
+                android:id="@+id/tv_article_detail_content"
+                style="@style/App.TextBody16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{article.description}"
+                app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
+                app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
+                app:layout_constraintTop_toBottomOf="@id/iv_article_detail_image"
+                tools:text="For all the ink spilled over its horrors, the 2023 stock market will go into the books as an undistinguished one in the history of bad years. For traders" />
 
-        <TextView
-            android:id="@+id/tv_article_detail_content"
-            style="@style/App.TextBody16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
-            app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
-            app:layout_constraintTop_toBottomOf="@id/iv_article_detail_image"
-            tools:text="For all the ink spilled over its horrors, the 2023 stock market will go into the books as an undistinguished one in the history of bad years. For traders" />
-
-        <TextView
-            android:id="@+id/tv_article_detail_publish_date"
-            style="@style/App.TextBody12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
-            app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
-            app:layout_constraintTop_toBottomOf="@id/tv_article_detail_content"
-            tools:text="2024/02/01" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/tv_article_detail_publish_date"
+                style="@style/App.TextBody12"
+                dateFormat="@{article.publishedAt}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tv_article_detail_category"
+                app:layout_constraintStart_toStartOf="@id/tv_article_detail_category"
+                app:layout_constraintTop_toBottomOf="@id/tv_article_detail_content"
+                tools:text="2024/02/01" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

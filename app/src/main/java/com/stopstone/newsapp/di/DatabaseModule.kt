@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.di
 
 import android.content.Context
 import androidx.room.Room

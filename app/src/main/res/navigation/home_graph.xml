@@ -27,7 +27,11 @@
         android:id="@+id/navigation_bookmark"
         android:name="com.stopstone.newsapp.ui.bookmark.BookmarkFragment"
         android:label="@string/label_bookmark"
-        tools:layout="@layout/fragment_bookmark"/>
+        tools:layout="@layout/fragment_bookmark">
+        <action
+            android:id="@+id/action_bookmark_to_article_detail"
+            app:destination="@id/navigation_article_detail" />
+    </fragment>
     <activity
         android:id="@+id/navigation_article_detail"
         android:name="com.stopstone.newsapp.ui.detail.ArticleDetailActivity"

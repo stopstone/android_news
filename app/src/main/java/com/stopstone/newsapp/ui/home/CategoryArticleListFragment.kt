@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.stopstone.newsapp.NewsApplication
-import com.stopstone.newsapp.data.CategoryArticleRepository
 import com.stopstone.newsapp.data.model.Article
 import com.stopstone.newsapp.data.model.Category
 import com.stopstone.newsapp.databinding.FragmentCategoryArticleListBinding
 import com.stopstone.newsapp.ui.common.ArticleClickListener
 import com.stopstone.newsapp.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryArticleListFragment : Fragment(), ArticleClickListener {
@@ -25,7 +21,7 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
     private var _binding: FragmentCategoryArticleListBinding? = null
     private val binding get() = _binding!!
     private lateinit var category: Category
-    @Inject lateinit var repository : CategoryArticleRepository
+    private val viewModel by viewModels<CategoryArticleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +39,7 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
         setLayout()
     }
 
@@ -69,9 +66,10 @@ class CategoryArticleListFragment : Fragment(), ArticleClickListener {
     private fun setLayout() {
         val adapter = CategoryArticleAdapter(category, this)
         binding.rvCategoryArticleList.adapter = adapter
-        lifecycleScope.launch {
-            val result = repository.getCategoryArticle(category.label)
-            adapter.addArticles(result)
+
+        viewModel.loadCategoryArticle(category.label)
+        viewModel.items.observe(viewLifecycleOwner) { articles ->
+            adapter.addArticles(articles)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.stopstone.newsapp.ui
+package com.stopstone.newsapp.di
 
 import com.stopstone.newsapp.data.source.remote.NewsService
 import dagger.Module

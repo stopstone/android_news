@@ -7,8 +7,6 @@ import com.stopstone.newsapp.data.model.Article
 import com.stopstone.newsapp.data.model.Category
 import com.stopstone.newsapp.databinding.ItemCategoryArticleBinding
 import com.stopstone.newsapp.ui.common.ArticleClickListener
-import com.stopstone.newsapp.ui.extensions.load
-import com.stopstone.newsapp.ui.extensions.setPublishedAt
 
 class CategoryArticleAdapter(
     private val category: Category,
@@ -40,15 +38,9 @@ class CategoryArticleViewHolder(
     private val listener: ArticleClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(category: Category, article: Article) {
-        itemView.setOnClickListener {
-            listener.onClickArticle(category, article)
-        }
-        with(binding) {
-            ivArticleThumbnailImage.load(article.urlToImage)
-            tvArticleTitle.text = article.title
-            tvArticleDescription.text = article.description
-            tvArticlePublishDate.setPublishedAt(article.publishedAt)
-        }
+        binding.article = article
+        binding.category = category
+        binding.listener = listener
     }
 
     companion object {

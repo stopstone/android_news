@@ -3,19 +3,26 @@ package com.stopstone.newsapp.ui.bookmark
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.stopstone.newsapp.data.model.BookmarkArticle
 import com.stopstone.newsapp.data.model.BookmarkItem
 import com.stopstone.newsapp.data.model.BookmarkSectionArticle
 import com.stopstone.newsapp.data.model.BookmarkSectionTitle
+import com.stopstone.newsapp.data.model.sectionTitle
 import com.stopstone.newsapp.databinding.ItemBookmarkSectionArticlesBinding
 import com.stopstone.newsapp.databinding.ItemBookmarkSectionTitleBinding
+import com.stopstone.newsapp.ui.common.ArticleClickListener
 
-class BookmarkAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+private const val VIEW_TYPE_SECTION_TITLE = 0
+private const val VIEW_TYPE_SECTION_ARTICLE = 1
+
+class BookmarkAdapter(private val listener: ArticleClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<BookmarkItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            0 -> BookmarkSectionTitleViewHolder.from(parent)
-            else -> BookmarkSectionArticleViewHolder.from(parent)
+            VIEW_TYPE_SECTION_TITLE -> BookmarkSectionTitleViewHolder.from(parent)
+            else -> BookmarkSectionArticleViewHolder.from(parent, listener)
         }
     }
 
@@ -39,22 +46,32 @@ class BookmarkAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is BookmarkSectionTitle -> 0
-            is BookmarkSectionArticle -> 1
+            is BookmarkSectionTitle -> VIEW_TYPE_SECTION_TITLE
+            is BookmarkSectionArticle -> VIEW_TYPE_SECTION_ARTICLE
         }
     }
 
-    fun add(bookmarkArticles: List<BookmarkItem>) {
-        val positionStart = items.size
-        items.addAll(bookmarkArticles)
-        notifyItemRangeInserted(positionStart, bookmarkArticles.size)
+    fun submitBookmarkArticles(articles: List<BookmarkArticle>) {
+        val items = mutableListOf<BookmarkItem>()
+        articles.groupBy { it.category }
+            .forEach {
+                items.add(BookmarkSectionTitle(it.key.sectionTitle()))
+                items.add(BookmarkSectionArticle(it.value))
+            }
+        add(items)
+    }
+
+    private fun add(bookmarkItems: List<BookmarkItem>) {
+        items.clear()
+        items.addAll(bookmarkItems)
+        notifyDataSetChanged()
     }
 
     class BookmarkSectionTitleViewHolder(
         private val binding: ItemBookmarkSectionTitleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BookmarkSectionTitle) {
-            binding.tvBookmarkSectionTitle.text = item.label
+            binding.sectionTitle = item
         }
 
         companion object {
@@ -65,13 +82,15 @@ class BookmarkAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 return BookmarkSectionTitleViewHolder(binding)
             }
         }
-
     }
 
 
-    class BookmarkSectionArticleViewHolder(private val binding: ItemBookmarkSectionArticlesBinding) :
+    class BookmarkSectionArticleViewHolder(
+        private val binding: ItemBookmarkSectionArticlesBinding,
+        private val listener: ArticleClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        private val nestedAdapter = BookmarkArticleAdapter()
+        private val nestedAdapter = BookmarkArticleAdapter(listener)
 
         init {
             binding.rvBookmarkSectionArticleList.adapter = nestedAdapter
@@ -82,13 +101,15 @@ class BookmarkAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         companion object {
-            fun from(parent: ViewGroup): BookmarkSectionArticleViewHolder {
+            fun from(
+                parent: ViewGroup,
+                listener: ArticleClickListener
+            ): BookmarkSectionArticleViewHolder {
                 val binding = ItemBookmarkSectionArticlesBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                return BookmarkSectionArticleViewHolder(binding)
+                return BookmarkSectionArticleViewHolder(binding, listener)
             }
-
         }
     }
 }

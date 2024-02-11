@@ -1,58 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_article_thumbnail_image"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/description_article_thumbnail_image"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_image_not_supported" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_article_title"
-        style="@style/App.TextHeadLine24"
-        android:layout_width="0dp"
+        <variable
+            name="article"
+            type="com.stopstone.newsapp.data.model.Article" />
+
+        <variable
+            name="category"
+            type="com.stopstone.newsapp.data.model.Category" />
+
+        <variable
+            name="listener"
+            type="com.stopstone.newsapp.ui.common.ArticleClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_article_thumbnail_image"
-        tools:text="Traders Are Losing Hope in Stock Market After Year of Rolling Losses, Fakeouts" />
+        android:onClick="@{() -> listener.onClickArticle(category, article)}">
 
-    <TextView
-        android:id="@+id/tv_article_description"
-        style="@style/App.TextBody16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        app:layout_constraintEnd_toEndOf="@id/tv_article_title"
-        app:layout_constraintStart_toStartOf="@id/tv_article_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_article_title"
-        tools:text="For all the ink spilled over its horrors, the 2023 stock market will go into the books as an undistinguished one in the history of bad years.For traders" />
+        <ImageView
+            android:id="@+id/iv_article_thumbnail_image"
+            iamgeUrl="@{article.urlToImage}"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/description_article_thumbnail_image"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_image_not_supported" />
 
-    <TextView
-        android:id="@+id/tv_article_publish_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_article_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_article_description"
-        tools:text="2024/01/28" />
+        <TextView
+            android:id="@+id/tv_article_title"
+            style="@style/App.TextHeadLine24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{article.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_article_thumbnail_image"
+            tools:text="Traders Are Losing Hope in Stock Market After Year of Rolling Losses, Fakeouts" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_article_description"
+            style="@style/App.TextBody16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{article.description}"
+            app:layout_constraintEnd_toEndOf="@id/tv_article_title"
+            app:layout_constraintStart_toStartOf="@id/tv_article_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_article_title"
+            tools:text="For all the ink spilled over its horrors, the 2023 stock market will go into the books as an undistinguished one in the history of bad years.For traders" />
+
+        <TextView
+            android:id="@+id/tv_article_publish_date"
+            dateFormat="@{article.publishedAt}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_article_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_article_description"
+            tools:text="2024/01/28" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
